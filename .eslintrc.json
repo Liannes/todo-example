@@ -1,0 +1,51 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended"
+    // "plugin:import/recommended"
+  ],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "plugins": [
+    "prettier",
+    "react",
+    "react-hooks",
+    "jest"
+  ],
+  // "rules": [],
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          [
+            "Shared",
+            "./src/shared"
+          ],
+          [
+            "Assets",
+            "./src/assets"
+          ]
+        ],
+        "extensions": [
+          ".js",
+          ".css",
+          ".sass",
+          ".json",
+          ".jsx",
+          ".scss",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+
+.layout {
+  height: 100vh;
+  background-color: #fbe2d0;
+  overflow-y: hidden;
+
+  &-containers {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}

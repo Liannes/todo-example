@@ -1,0 +1,83 @@
+{
+  "folders": [
+    {
+      "name": "main",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      //   "frontend": true,
+      "**/.DS_Store": true,
+      "**/.git": true,
+      "jspm_packages": true
+    },
+    "search.exclude": {
+      "**/node_modules": false,
+      "**/bower_components": true
+    },
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/node_modules/*/**": true
+    },
+    // Format a file on save. A formatter must be available, the file must not be auto-saved, and editor must not be shutting down.
+    "editor.formatOnSave": true,
+    // Enable/disable default JavaScript formatter (For Prettier)
+    "javascript.format.enable": false,
+    "javascript.validate.enable": false,
+    // Use 'prettier-eslint' instead of 'prettier'. Other settings will only be fallbacks in case they could not be inferred from eslint rules.
+    "prettier.eslintIntegration": true,
+    "editor.renderWhitespace": "none",
+    "editor.fontSize": 24,
+    "editor.tabSize": 2,
+    "editor.multiCursorModifier": "alt",
+    "editor.wordWrap": "off",
+    "editor.insertSpaces": true,
+    "files.encoding": "utf8",
+    "files.trimTrailingWhitespace": true,
+    "files.eol": "\n",
+    "files.trimFinalNewlines": true,
+    "emmet.syntaxProfiles": {
+      "javascript": "jsx"
+    },
+    "[typescript]": {
+      "editor.formatOnSave": true,
+      "editor.formatOnPaste": true
+    },
+    "[markdown]": {
+      "editor.formatOnSave": true,
+      "editor.renderWhitespace": "none",
+      "editor.acceptSuggestionOnEnter": "off"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "files.associations": {
+      "*.jsx": "javascriptreact",
+      "*.js": "javascriptreact"
+    },
+    "editor.fontFamily": "Source Code Pro",
+    "cSpell.diagnosticLevel": "Hint",
+    "cSpell.words": [
+      "thead"
+    ],
+    "cSpell.enabled": true,
+    "sonarlint.connectedMode.project": {},
+    "sonarlint.analyzerProperties": {},
+    "sonarlint.rules": false
+  },
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "formulahendry.auto-rename-tag",
+      "ecmel.vscode-html-css",
+      "ms-vscode.notepadplusplus-keybindings",
+      "dsznajder.es7-react-js-snippets"
+    ]
+  }
+}
