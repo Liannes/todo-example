@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  frontend:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./docker/caddy/dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./caddy_data:/data

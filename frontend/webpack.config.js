@@ -1,30 +1,32 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
-const WebpackPwaManifest = require('@gzaripov/webpack-pwa-manifest');
+const path = require("path");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const ESLintPlugin = require("eslint-webpack-plugin");
+const WebpackPwaManifest = require("@gzaripov/webpack-pwa-manifest");
 
-const template = require('./config/template.js');
+const template = require("./config/template.js");
 
 module.exports = function (options) {
-  const isEnvProduction = options.mode === 'production';
+  const isEnvProduction = options.mode === "production";
   const isEnvDevelopment = !isEnvProduction;
-  const isDevServer = isEnvDevelopment && process.argv.includes('serve');
+  const isDevServer = isEnvDevelopment && process.argv.includes("serve");
   const webpackConfig = {
-    mode: isEnvProduction ? 'production' : 'development',
-    entry: './src/index.tsx',
-    devtool: 'inline-source-map',
+    mode: "production",
+    entry: "./src/index.tsx",
+    bail: true,
+    target: "browserslist",
+    devtool: false,
     output: {
-      filename: 'index.js',
-      path: path.resolve(__dirname, 'dist'),
+      filename: "index.js",
+      path: path.resolve(__dirname, "dist"),
       clean: true,
-      devtoolModuleFilenameTemplate: '[absolute-resource-path]',
-      assetModuleFilename: 'images/[hash][ext][query]',
-      publicPath: '',
+      // devtoolModuleFilenameTemplate: "[absolute-resource-path]",
+      assetModuleFilename: "images/[hash][ext][query]",
+      publicPath: "",
     },
 
     performance: {
@@ -38,11 +40,11 @@ module.exports = function (options) {
 
     resolve: {
       // include
-      extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss'],
+      extensions: [".ts", ".tsx", ".js", ".jsx", ".scss"],
       // short path
       alias: {
-        Shared: path.resolve(__dirname, 'src/shared/'),
-        Assets: path.resolve(__dirname, 'src/assets/'),
+        Shared: path.resolve(__dirname, "src/shared/"),
+        Assets: path.resolve(__dirname, "src/assets/"),
       },
     },
 
@@ -63,16 +65,21 @@ module.exports = function (options) {
         // typescript
         {
           test: /\.tsx?$/,
-          use: 'ts-loader',
+          use: "ts-loader",
           exclude: /node_modules/,
         },
         //scss,sass
         {
           test: /\.(s[ac]|c)ss$/i,
           use: [
-            isEnvDevelopment ? 'style-loader' : { loader: MiniCssExtractPlugin.loader, options: { publicPath: '' } },
+            isEnvDevelopment
+              ? "style-loader"
+              : {
+                  loader: MiniCssExtractPlugin.loader,
+                  options: { publicPath: "" },
+                },
             {
-              loader: 'css-loader',
+              loader: "css-loader",
               options: {
                 sourceMap: true,
                 // modules: {
@@ -80,26 +87,26 @@ module.exports = function (options) {
                 // },
               },
             },
-            'sass-loader',
+            "sass-loader",
           ].filter(Boolean),
         },
         //icon
         {
           test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-          type: 'asset/resource',
+          type: "asset/resource",
           generator: {
-            filename: 'images/design/[name].[hash:6][ext]',
+            filename: "images/design/[name].[hash:6][ext]",
           },
         },
         //font
-        { test: /\.(woff|woff2|eot|ttf|otf)$/i, type: 'asset/resource' },
+        { test: /\.(woff|woff2|eot|ttf|otf)$/i, type: "asset/resource" },
       ],
     },
 
     plugins: [
       new CleanWebpackPlugin({
         verbose: true,
-        cleanOnceBeforeBuildPatterns: ['**/*', '!stats.json'],
+        cleanOnceBeforeBuildPatterns: ["**/*", "!stats.json"],
       }),
       new ESLintPlugin(),
       new MiniCssExtractPlugin(),
@@ -115,7 +122,7 @@ module.exports = function (options) {
         title: template.title,
         // favIcon: template.public + '/favicon.ico',
         template: template.appHtml, // template file
-        filename: 'index.html', // output file
+        filename: "index.html", // output file
         // meta: template.HtmlWebpackPluginMeta,
         ...(isEnvProduction && {
           minify: {
