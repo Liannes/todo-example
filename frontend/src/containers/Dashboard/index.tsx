@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import TableTodo from './TableTodo';
+import Todo from './component/Todo';
 
 const Dashboard: React.FC = () => {
-  return <TableTodo />;
+  return <Todo />;
 };
 export default Dashboard;

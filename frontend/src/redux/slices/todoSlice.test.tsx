@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
-import todoSlice, { addTodo, removeTodo, completedTodo, filterTodos } from './todoSlice';
-import { ITodo } from './ITodo';
+import { ITodo } from 'types/ITodo';
+import todoSlice, { addTodo, completedTodo, filterTodos, removeTodo } from './todoSlice';
 
 interface TodoState {
   todos: ITodo[];

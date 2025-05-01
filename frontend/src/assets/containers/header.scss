@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+
+  &__title {
+    margin: 0;
+    font-weight: bold;
+    color: transparent;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    background-clip: text;
+  }
+
+  &__button {
+    display: flex;
+    gap: 20px;
+  }
+}
