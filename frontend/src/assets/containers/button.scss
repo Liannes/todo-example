@@ -1,5 +1,5 @@
 .button {
-  height: 48px;
+  height: var(--height-button);
 
   display: flex;
   align-items: center;
@@ -11,6 +11,15 @@
   color: var(--color-text);
 
   cursor: pointer;
+
+  @include mobile {
+    height: var(--height-button-mobile);
+    font-size: 12px;
+  }
+
+  @include mobile-s {
+    font-size: 10px;
+  }
 
   &:hover {
     transform: translateY(-2px);
@@ -39,8 +48,6 @@
       width: 24px;
       height: 24px;
     }
-
-
   }
 
   &-edit {
@@ -53,10 +60,16 @@
   }
 
   &-action {
-    width: 48px;
+    width: var(--height-button);
+
     background: transparent;
     border: 1px solid var(--color-border);
     border-radius: 50%;
+
+    @include tablet {
+      height: 32px;
+      width: 32px;
+    }
 
     &:hover {
       transform: none;

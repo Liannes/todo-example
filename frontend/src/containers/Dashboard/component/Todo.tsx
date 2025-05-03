@@ -1,11 +1,11 @@
-import TodoList from './TodoList';
-import TodoStatic from './TodoStatic';
+import TodoDashboard from './TodoDashboard';
+import TodoDashboardInfo from './TodoDashboardInfo';
 
 const Todo = () => {
   return (
     <section className="todo">
-      <TodoList />
-      <TodoStatic />
+      <TodoDashboard />
+      <TodoDashboardInfo />
     </section>
   );
 };

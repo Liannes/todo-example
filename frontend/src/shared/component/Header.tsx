@@ -5,16 +5,28 @@ import { useDispatch } from 'react-redux';
 
 import Button from './Button';
 
+const enum FilterStatus {
+  ALL = 'all',
+  ACTIVE = 'active',
+  COMPLETED = 'completed',
+}
+
+const filterOptions = [
+  { status: FilterStatus.ALL, label: 'Все' },
+  { status: FilterStatus.ACTIVE, label: 'Активные' },
+  { status: FilterStatus.COMPLETED, label: 'Завершенные' },
+];
+
 const Header = () => {
-  const [state, setState] = useState<string>('all');
+  const [currentFilter, setCurrentFilter] = useState<FilterStatus>(FilterStatus.ALL);
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleActiveButton = (status: string): string => {
-    return state === status ? 'button-filter active' : 'button-filter';
+  const handleActiveButton = (status: FilterStatus): string => {
+    return `button-filter${currentFilter === status ? ' active' : ''}`;
   };
 
-  const handleSetFilterTodoList = (status: string): void => {
-    setState(status);
+  const handleSetFilterTodo = (status: FilterStatus): void => {
+    setCurrentFilter(status);
     dispatch(filterTodos({ filter: status }));
   };
 
@@ -22,30 +34,17 @@ const Header = () => {
     <header className="header">
       <h1 className="header__title">Todo</h1>
       <div className="header__button">
-        <Button
-          type="button"
-          title="Добавить"
-          className={handleActiveButton('all')}
-          onClick={() => handleSetFilterTodoList('all')}
-        >
-          <span>Все</span>
-        </Button>
-        <Button
-          type="button"
-          title="Активные"
-          className={handleActiveButton('active')}
-          onClick={() => handleSetFilterTodoList('active')}
-        >
-          <span>Активные</span>
-        </Button>
-        <Button
-          type="button"
-          title="Завершенные"
-          className={handleActiveButton('completed')}
-          onClick={() => handleSetFilterTodoList('completed')}
-        >
-          <span>Завершенные</span>
-        </Button>
+        {filterOptions.map(({ status, label }) => (
+          <Button
+            key={status}
+            type="button"
+            title={label}
+            className={handleActiveButton(status)}
+            onClick={() => handleSetFilterTodo(status)}
+          >
+            <span>{label}</span>
+          </Button>
+        ))}
       </div>
     </header>
   );

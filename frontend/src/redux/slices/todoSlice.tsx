@@ -5,9 +5,30 @@ import { TodoState } from 'types/ITodoState';
 
 type taskFilter = 'active' | 'completed' | 'all';
 
+const initialStorage: ITodo[] = [
+  {
+    id: 1,
+    text: 'Покормить кота',
+    completed: false,
+  },
+  {
+    id: 2,
+    text: 'Разморозить курицу',
+    completed: true,
+  },
+  {
+    id: 3,
+    text: 'Отправить письмо',
+    completed: false,
+  },
+];
+
 const getStorageTodos = () => {
   const todos = localStorage.getItem('todos');
-  return todos ? JSON.parse(todos) : [];
+  if (todos) return JSON.parse(todos);
+
+  pushStorageTodos(initialStorage);
+  return initialStorage;
 };
 
 const pushStorageTodos = (todos: ITodo[]) => {

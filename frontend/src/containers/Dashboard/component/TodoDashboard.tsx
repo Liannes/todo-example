@@ -14,7 +14,7 @@ interface EditState {
   isEditing: boolean;
 }
 
-const TodoList = () => {
+const TodoDashboard = () => {
   const initialEditState: EditState = { id: null, isEditing: false };
 
   const [inputValue, setInputValue] = useState('');
@@ -78,18 +78,21 @@ const TodoList = () => {
         onEdit={handleEditTodo}
       />
       <div className="todo__list">
-        {todos.map(todo => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onToggle={handleToggleTodo}
-            onEdit={handleStartEdit}
-            onDelete={handleDeleteTodo}
-          />
-        ))}
+        {todos
+          .slice()
+          .sort((a, b) => Number(a.completed) - Number(b.completed))
+          .map(todo => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              onToggle={handleToggleTodo}
+              onEdit={handleStartEdit}
+              onDelete={handleDeleteTodo}
+            />
+          ))}
       </div>
     </div>
   );
 };
 
-export default TodoList;
+export default TodoDashboard;
