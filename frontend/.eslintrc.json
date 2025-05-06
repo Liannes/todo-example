@@ -27,11 +27,15 @@
       "alias": {
         "map": [
           [
-            "Shared",
+            "@shared",
             "./src/shared"
           ],
           [
-            "Assets",
+            "@assets",
+            "./src/assets"
+          ],
+          [
+            "@assets",
             "./src/assets"
           ]
         ],

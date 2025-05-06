@@ -1,0 +1,79 @@
+.button {
+  height: var(--height-button);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 10px;
+  font-size: 14px;
+
+  color: var(--color-text);
+
+  cursor: pointer;
+
+  @include mobile {
+    height: var(--height-button-mobile);
+    font-size: 12px;
+  }
+
+  @include mobile-s {
+    font-size: 10px;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &-filter {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+
+    &.active,
+    &:hover {
+      background: var(--color-primary);
+    }
+  }
+
+  &-add {
+    display: flex;
+    gap: 5px;
+    font-weight: 500;
+    background: var(--color-gradient);
+    border: transparent;
+    border-radius: var(--border-radius);
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &-edit {
+    @extend .button-add;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &-action {
+    width: var(--height-button);
+
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+
+    @include tablet {
+      height: 32px;
+      width: 32px;
+    }
+
+    &:hover {
+      transform: none;
+      border-color: var(--color-primary);
+    }
+  }
+}

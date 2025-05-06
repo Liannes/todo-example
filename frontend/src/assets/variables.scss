@@ -1,0 +1,30 @@
+:root {
+  --font-family-base: "Comfortaa", sens-serif;
+
+  --color-bg: rgba(20, 20, 30, 0.55);
+  --color-bg-add: rgba(30, 30, 40, 0.7);
+  --color-text: white;
+  --color-accent: rgba(67, 255, 210, 0.8);
+  --color-primary: rgba(100, 108, 255, 0.8);
+  --color-secondary: rgba(255, 107, 107, 0.8);
+  --color-border: rgba(255, 255, 255, 0.1);
+
+  --color-gradient: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+
+  --toastify-icon-color-success: var(--color-primary);
+  --toastify-icon-color-error: var(--color-secondary);
+
+  --height-button: 48px;
+  --height-add: 48px;
+
+  --height-button-mobile: 36px;
+  --height-add-mobile: 36px;
+
+  --width-container-other: 1536px;
+  --width-container-desktop: 1280px;
+  --width-container-tablet: 1024px;
+  --width-container-mobile: 768px;
+  --width-container-mobile-s: 480px;
+
+  --border-radius: 10px;
+}

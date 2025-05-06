@@ -1,37 +1,41 @@
-const path = require("path");
-const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const ESLintPlugin = require("eslint-webpack-plugin");
-const WebpackPwaManifest = require("@gzaripov/webpack-pwa-manifest");
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
-const template = require("./config/template.js");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
+const WebpackPwaManifest = require('@gzaripov/webpack-pwa-manifest');
+
+const template = require('./config/template.js');
 
 module.exports = function (options) {
-  const isEnvProduction = options.mode === "production";
+  const isEnvProduction = options.mode === 'production';
   const isEnvDevelopment = !isEnvProduction;
-  const isDevServer = isEnvDevelopment && process.argv.includes("serve");
+  const isDevServer = isEnvDevelopment && process.argv.includes('serve');
+
   const webpackConfig = {
-    mode: "production",
-    entry: "./src/index.tsx",
+    mode: 'production',
+    // production, development
+    entry: './src/index.tsx',
     bail: true,
-    target: "browserslist",
-    devtool: false,
+    target: 'browserslist',
+    devtool: false, //'inline-source-map',
     output: {
-      filename: "index.js",
-      path: path.resolve(__dirname, "dist"),
+      filename: 'index.js',
+      path: path.resolve(__dirname, 'dist'),
       clean: true,
-      // devtoolModuleFilenameTemplate: "[absolute-resource-path]",
-      assetModuleFilename: "images/[hash][ext][query]",
-      publicPath: "",
+      // devtoolModuleFilenameTemplate: '[absolute-resource-path]',
+      assetModuleFilename: 'images/[name].[hash:6][ext]',
+      publicPath: '/',
     },
 
     performance: {
-      maxAssetSize: 650 * 1024,
-      maxEntrypointSize: 650 * 1024,
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000,
     },
 
     optimization: {
@@ -40,17 +44,21 @@ module.exports = function (options) {
 
     resolve: {
       // include
-      extensions: [".ts", ".tsx", ".js", ".jsx", ".scss"],
+      extensions: ['.ts', '.tsx', '.js', '.jsx', '.scss', '.svg', '.png'],
       // short path
       alias: {
-        Shared: path.resolve(__dirname, "src/shared/"),
-        Assets: path.resolve(__dirname, "src/assets/"),
+        '@shared': path.resolve(__dirname, 'src/shared/'),
+        '@assets': path.resolve(__dirname, 'src/assets/'),
+        '@components': path.resolve(__dirname, 'src/assets/components/'),
+        '@redux': path.resolve(__dirname, 'src/redux/'),
+        types: path.resolve(__dirname, 'src/types/'),
       },
     },
 
     module: {
       rules: [
         // jsx
+
         // {
         //     test: /\.jsx?$/,
         //     exclude: /node_modules/
@@ -65,7 +73,7 @@ module.exports = function (options) {
         // typescript
         {
           test: /\.tsx?$/,
-          use: "ts-loader",
+          use: 'ts-loader',
           exclude: /node_modules/,
         },
         //scss,sass
@@ -73,13 +81,15 @@ module.exports = function (options) {
           test: /\.(s[ac]|c)ss$/i,
           use: [
             isEnvDevelopment
-              ? "style-loader"
+              ? 'style-loader'
               : {
                   loader: MiniCssExtractPlugin.loader,
-                  options: { publicPath: "" },
+                  options: {
+                    publicPath: '',
+                  },
                 },
             {
-              loader: "css-loader",
+              loader: 'css-loader',
               options: {
                 sourceMap: true,
                 // modules: {
@@ -87,26 +97,34 @@ module.exports = function (options) {
                 // },
               },
             },
-            "sass-loader",
+            'sass-loader',
           ].filter(Boolean),
         },
         //icon
         {
-          test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
-          type: "asset/resource",
+          test: /\.svg$/,
+          use: ['@svgr/webpack', 'url-loader'],
+        },
+        {
+          test: /\.(?:ico|gif|png|jpg|jpeg|)$/i,
+          type: 'asset/resource',
+          // use: 'url-loader',
           generator: {
-            filename: "images/design/[name].[hash:6][ext]",
+            filename: 'images/design/[name].[hash:6][ext]',
           },
         },
         //font
-        { test: /\.(woff|woff2|eot|ttf|otf)$/i, type: "asset/resource" },
+        {
+          test: /\.(woff|woff2|eot|ttf|otf)$/i,
+          type: 'asset/resource',
+        },
       ],
     },
 
     plugins: [
       new CleanWebpackPlugin({
         verbose: true,
-        cleanOnceBeforeBuildPatterns: ["**/*", "!stats.json"],
+        cleanOnceBeforeBuildPatterns: ['**/*', '!stats.json'],
       }),
       new ESLintPlugin(),
       new MiniCssExtractPlugin(),
@@ -122,22 +140,7 @@ module.exports = function (options) {
         title: template.title,
         // favIcon: template.public + '/favicon.ico',
         template: template.appHtml, // template file
-        filename: "index.html", // output file
-        // meta: template.HtmlWebpackPluginMeta,
-        ...(isEnvProduction && {
-          minify: {
-            removeComments: true,
-            collapseWhitespace: true,
-            removeRedundantAttributes: true,
-            useShortDoctype: true,
-            removeEmptyAttributes: true,
-            removeStyleLinkTypeAttributes: true,
-            keepClosingSlash: true,
-            minifyJS: true,
-            minifyCSS: true,
-            minifyURLs: true,
-          },
-        }),
+        filename: 'index.html', // output file
       }),
       new WebpackPwaManifest(template.WebpackPwaManifest),
       isDevServer && new ReactRefreshWebpackPlugin(),
@@ -146,15 +149,21 @@ module.exports = function (options) {
 
   const devServer = {
     static: {
-      directory: template.public,
+      // directory: template.public, //если не нужен router-dom
+      directory: path.join(__dirname, 'public'),
       serveIndex: true,
       watch: true,
     },
+
     hot: true,
     compress: true,
-    open: true,
+    historyApiFallback: true,
+    open: false,
     port: 3000,
   };
 
-  return isDevServer ? { ...webpackConfig, devServer } : webpackConfig;
+  return {
+    ...webpackConfig,
+    devServer: isDevServer ? devServer : undefined,
+  };
 };

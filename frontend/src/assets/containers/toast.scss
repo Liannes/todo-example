@@ -1,0 +1,29 @@
+.toast {
+
+  &-item {
+    font-family: var(--font-family-base);
+    background: var(--color-bg-add);
+    color: var(--color-text);
+
+    .Toastify__close-button {
+      color: var(--color-text);
+      opacity: 1;
+    }
+
+    .Toastify__progress-bar--success {
+      background: var(--color-gradient);
+    }
+
+    .Toastify__progress-bar--error {
+      background: var(--color-secondary);
+    }
+
+    .Toastify__toast--success {
+      svg {
+        fill: var(--color-primary) !important;
+      }
+
+    }
+  }
+
+}

@@ -1,8 +1,8 @@
 const path = require('path');
 const fs = require('fs');
 
-const title = 'React-leering';
-const titleShort = 'RL';
+const title = 'Todo';
+const titleShort = 'Todo';
 
 const appDirectory = fs.realpathSync(process.cwd());
 const buildPath = process.env.BUILD_PATH || 'build';
@@ -29,13 +29,13 @@ const WebpackPwaManifest = {
   filename: 'manifest.json',
   // start_url: './login',
   scope: '.',
-  publicPath: null,
+  publicPath: '/',
   dir: 'ltr', //'ltr', 'rtl', 'auto'
   orientation: 'portrait', //'any', 'natural', 'landscape', 'landscape-primary', 'landscape-secondary', 'portrait', 'portrait-primary', 'portrait-secondary', 'omit'
   display: 'standalone', //'fullscreen', 'standalone', 'minimal-ui', 'browser'
   name: title,
   short_name: titleShort,
-  description: 'desrition',
+  description: 'description',
   background_color: '#000000',
   theme_color: '#ffffff',
   crossorigin: null, // null, 'use-credentials', 'anonymous'

@@ -1,15 +1,34 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ITodo } from './ITodo';
 
-interface TodoState {
-  todos: ITodo[];
-}
+import { ITodo } from 'types/ITodo';
+import { TodoState } from 'types/ITodoState';
 
 type taskFilter = 'active' | 'completed' | 'all';
 
+const initialStorage: ITodo[] = [
+  {
+    id: 1,
+    text: 'Покормить кота',
+    completed: false,
+  },
+  {
+    id: 2,
+    text: 'Разморозить курицу',
+    completed: true,
+  },
+  {
+    id: 3,
+    text: 'Отправить письмо',
+    completed: false,
+  },
+];
+
 const getStorageTodos = () => {
   const todos = localStorage.getItem('todos');
-  return todos ? JSON.parse(todos) : [];
+  if (todos) return JSON.parse(todos);
+
+  pushStorageTodos(initialStorage);
+  return initialStorage;
 };
 
 const pushStorageTodos = (todos: ITodo[]) => {
@@ -28,18 +47,21 @@ const todoSlice = createSlice({
       state.todos.push(action.payload);
       pushStorageTodos(state.todos);
     },
+
     removeTodo: (state, action) => {
-      const findIndex = state.todos.findIndex(todo => todo.id === action.payload.id);
+      const findIndex = state.todos.findIndex((todo: ITodo) => todo.id === action.payload.id);
       state.todos.splice(findIndex, 1);
       pushStorageTodos(state.todos);
     },
+
     completedTodo: (state, action) => {
-      const todo = state.todos.find(todo => todo.id === action.payload.id);
+      const todo = state.todos.find((todo: ITodo) => todo.id === action.payload.id);
       if (todo) {
         todo.completed = !todo.completed;
         pushStorageTodos(state.todos);
       }
     },
+
     filterTodos: (state, action) => {
       const filter: taskFilter = action.payload.filter;
       const allTodo = getStorageTodos();
@@ -53,8 +75,22 @@ const todoSlice = createSlice({
         state.todos = getStorageTodos();
       }
     },
+
+    editTodo: (state, action) => {
+      const { id, text } = action.payload;
+      const allTodo = getStorageTodos();
+
+      allTodo.forEach((todo: ITodo) => {
+        if (todo.id === id) {
+          todo.text = text;
+        }
+      });
+
+      pushStorageTodos(allTodo);
+      state.todos = allTodo;
+    },
   },
 });
 
-export const { addTodo, removeTodo, completedTodo, filterTodos } = todoSlice.actions;
+export const { addTodo, removeTodo, completedTodo, filterTodos, editTodo } = todoSlice.actions;
 export default todoSlice.reducer;

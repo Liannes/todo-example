@@ -1,14 +1,18 @@
-import React from 'react';
-
-import 'Assets/app.scss';
+import '@assets/app.scss';
+import Header from '@shared/component/Header';
 import Dashboard from '../Dashboard/index';
+import CustomToastContainer from './component/CustomToastContainer';
+import VantaBackground from './component/VantaBackground';
 
 function App() {
   return (
     <div className="layout">
-      <div className="layout-containers">
+      <VantaBackground />
+      <Header />
+      <div className="layout-container">
         <Dashboard />
       </div>
+      <CustomToastContainer />
     </div>
   );
 }

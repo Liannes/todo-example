@@ -1,13 +1,28 @@
-
 .layout {
-  height: 100vh;
-  background-color: #fbe2d0;
-  overflow-y: hidden;
+  // height: 100vh;
+  overflow-y: none;
 
-  &-containers {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
+  &-container {
+    padding: 20px;
+
+    @include desktop-before {
+      max-width: var(--width-container-other);
+    }
+
+    @include desktop {
+      max-width: var(--width-container-desktop);
+    }
+
+    @include tablet {
+      max-width: var(--width-container-tablet);
+    }
+
+    @include mobile {
+      max-width: var(--width-container-mobile);
+    }
+
+    @include mobile-s {
+      max-width: var(--width-container-mobile-s);
+    }
   }
 }

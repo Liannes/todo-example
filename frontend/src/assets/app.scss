@@ -1,5 +1,13 @@
 @import '~bootstrap/scss/bootstrap';
-@import './colors.scss';
 
-@import './containers/layout.scss';
-@import './containers/todo.scss'
+@import './fonts.scss',
+'./variables.scss',
+'./normalize.scss',
+'./media.scss',
+'./globals.scss',
+'./containers/toast.scss',
+'./containers/header.scss',
+'./containers/button.scss',
+'./containers/checkbox.scss',
+'./containers/layout.scss',
+'./containers/todo.scss';

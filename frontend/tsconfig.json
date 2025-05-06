@@ -1,20 +1,54 @@
 {
   "compilerOptions": {
+    // строгий режим
+    "strict": true,
+    // строгий режим js
+    "alwaysStrict": false,
+    // версия
     "target": "es5",
+    //компилированые файлы
     "outDir": "./dist/",
+    // неявный указания
     "noImplicitAny": true,
+    // синтаксис
     "module": "es6",
     "jsx": "react-jsx",
+    // обработка js
     "allowJs": true,
+    // .map для отладки
     "sourceMap": true,
     "moduleResolution": "node",
     "noEmit": false,
+    // включение экспартирования файлов
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    // проверка валидности регистров пути
+    "forceConsistentCasingInFileNames": true,
+    // настройки включения
+    "baseUrl": "src/",
+    "paths": {
+      "@shared/*": [
+        "shared/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@components/*": [
+        "assets/components/*"
+      ],
+      "types/*": [
+        "types/*"
+      ],
+      "@redux/*": [
+        "redux/*"
+      ]
+    },
   },
+  // Включения
   "include": [
     "src"
   ],
+  // Исключения
   "exclude": [
     "node_modules"
   ]
