@@ -17,24 +17,25 @@ module.exports = function (options) {
   const isDevServer = isEnvDevelopment && process.argv.includes('serve');
 
   const webpackConfig = {
-    mode: 'development',
+    mode: 'production',
     // production, development
     entry: './src/index.tsx',
     bail: true,
     target: 'browserslist',
-    devtool: 'inline-source-map',
+    devtool: false, //'inline-source-map',
     output: {
       filename: 'index.js',
       path: path.resolve(__dirname, 'dist'),
       clean: true,
-      devtoolModuleFilenameTemplate: '[absolute-resource-path]',
+      // devtoolModuleFilenameTemplate: '[absolute-resource-path]',
       assetModuleFilename: 'images/[name].[hash:6][ext]',
       publicPath: '/',
     },
 
     performance: {
-      maxAssetSize: 650 * 1024,
-      maxEntrypointSize: 650 * 1024,
+      hints: false,
+      maxEntrypointSize: 512000,
+      maxAssetSize: 512000,
     },
 
     optimization: {

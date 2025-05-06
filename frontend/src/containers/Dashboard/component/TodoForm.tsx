@@ -1,5 +1,5 @@
 import Button from '@shared/component/Button';
-import { PencilSquare, Plus } from 'react-bootstrap-icons'
+import { PencilSquare, Plus } from 'react-bootstrap-icons';
 
 interface EditState {
   id: number | null;
