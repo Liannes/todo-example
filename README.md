@@ -1,6 +1,8 @@
 ###
-Адрес: todo.liannes-corp.online 
+1 Адрес: https://todo-examle.liannes-corp.online/
 
-Из-за того, что на сайте используеться ssl сертификат от let's script. 
+2 Адрес: https://todo.liannes-corp.online/
+>Из-за того, что на сайте используеться ssl сертификат от let's script. 
 Яндекс браузер блокирует сайт полностью. Остальные браузера работают правильно
+
 ###
